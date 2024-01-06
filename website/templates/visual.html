@@ -1,0 +1,315 @@
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+{% block content %}
+<img src="{{ url_for('static', filename='ipac LOGO.jpg') }}" id="logo">
+<nav class="secondary-nav">
+  <style>
+    .navbar {
+      position: absolute;
+      left: 35px;
+    }
+  </style>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css">
+  <style>
+    body {
+      margin: 0%;
+      font-size: 18px;
+    }
+
+    ul {
+      list-style-type: none;
+      margin: 0%;
+      padding: 1.6%;
+      overflow: hidden;
+      background-color: #113045;
+      text-align: center;
+      top: 0%;
+      width: 100%;
+    }
+
+    li {
+      float: left;
+    }
+
+    li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 12px 16px;
+      text-decoration: none !important;
+      font-weight: bold;
+      font-family: 'Roboto';
+    }
+
+    li a:hover {
+      background-color: black;
+      color: white;
+      border-radius: 10px;
+
+    }
+  </style>
+  
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  {% if category == 'Error' %}
+  <div class="alert alert-danger alert-dismissable fade show" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% else %}
+  <div class="alert alert-success alert-dismissable fade show" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+  <body>
+    <ul>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a id="logout" href="{{ url_for('auth.logout') }}">Logout</a></li>
+    </ul>
+  </body>
+</nav>
+
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.3/umd/popper.min.js"></script>
+  <style>
+    .container {
+      margin: 0 auto;
+      max-width: 5000px;
+      font-family: 'roboto';
+    }    
+  </style>
+</head>
+<head>
+  <title>Dashboard</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $('.dropdown-toggle').dropdown();
+    });
+  </script>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #dddddd;
+      font-weight: bold;
+    }
+
+    .plotly-graph-div {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<head>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+  <style>
+    #chart, #table, #pie-chart {
+      width: 100%;
+      height: 80%;
+      margin: 100px 10px 10px 10px;
+      padding: 10px;
+      box-sizing: border-box;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    #save-report-btn {
+      position: absolute;
+      top: 100px;
+      right: 10px;
+      z-index: 1;
+    }
+    .date-range-picker {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
+     }
+
+    .date-range-picker input {
+      width: 150px;
+      height: 30px;
+      font-size: 16px;
+      padding: 5px 10px;
+      margin: 0 10px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .date-range-picker input:focus {
+      outline: none;
+      border-color: #00bfff;
+    }
+
+    .date-range-picker button {
+      background-color: #00bfff;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+
+    .date-range-picker button:hover {
+      background-color: #0080ff;
+    }
+
+  </style>
+</head>
+<body>
+  <button type="submit" class="btn btn-primary" id="save-report-btn">Save Report</button>
+  <div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Select Date Range
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>01/01/2022</td>
+            <td>01/31/2022</td>
+          </tr>
+          <tr>
+            <td>02/01/2022</td>
+            <td>02/28/2022</td>
+          </tr>
+          <tr>
+            <td>03/01/2022</td>
+            <td>03/31/2022</td>
+          </tr>
+          <!-- Add more rows for more date ranges -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <div id="chart"></div>
+  <div id="pie-chart"></div>
+  <div id="table"></div>
+  <script>
+    // code to generate the bar chart using Plotly
+    var trace1 = {
+      x: ['January', 'February', 'March', 'April', 'May'],
+      y: [10, 20, 30, 40, 50],
+      type: 'bar',
+      name: 'Income'
+    };
+
+    var trace2 = {
+      x: ['January', 'February', 'March', 'April', 'May'],
+      y: [5, 15, 25, 35, 45],
+      type: 'bar',
+      name: 'Expenses'
+    };
+
+    var data = [trace1, trace2];
+
+    var layout = {
+      title: 'Income vs. Expenses',
+      xaxis: {
+        title: 'Month'
+      },
+      yaxis: {
+        title: 'Amount'
+      }
+    };
+
+    Plotly.newPlot('chart', data, layout);
+    // code to generate the pie chart using Plotly
+    var data2 = [{
+      values: [1500, 900, 300],
+      labels: ['Income', 'Material', 'Salaries'],
+      type: 'pie'
+    }];
+
+    var layout2 = {
+      title: 'Income vs. Expenses on Courses'
+    };
+
+    Plotly.newPlot('pie-chart', data2, layout2);
+  </script>
+  <script>
+    var data = [
+    ['Ahmed', 'Akremi', 25, 'Male'],
+    ['Ahmed', 'Mezni', 25, 'Male'],
+    ['Manar', 'Chorfi', 26, 'Female'],
+    ['Wejden', 'Mejri', 28, 'Female'],
+    ['Mohamed', 'Marzouki', 25, 'Male'],
+    ['Mohaned', 'Tounsi', 25, 'Male'],
+    ['Marwen', 'Manoubi', 25, 'Male'],
+    ['Mouna', 'Mouradi', 25, 'Female'],
+    ['Zina', 'Karmousi', 25, 'Female'],
+    ['Adem', 'Ben Sassi', 30, 'Male'],
+    ['Boubakker', 'Ayadi', 45, 'Male'],
+    ['Imed', 'Mnasri', 50, 'Female']
+    ];
+
+    var table = document.createElement('table');
+    var header = table.createTHead();
+    var row = header.insertRow();
+    var cell1 = row.insertCell();
+    var cell2 = row.insertCell();
+    var cell3 = row.insertCell();
+    var cell4 = row.insertCell();
+    cell1.innerHTML = '<b>First Name</b>';
+    cell2.innerHTML = '<b>Last Name</b>';
+    cell3.innerHTML = '<b>Age</b>';
+    cell4.innerHTML = '<b>Gender</b>';
+
+    for (var i = 0; i < data.length; i++) {
+      var row = table.insertRow();
+      var cell1 = row.insertCell();
+      var cell2 = row.insertCell();
+      var cell3 = row.insertCell();
+      var cell4 = row.insertCell();
+      cell1.innerHTML = data[i][0];
+      cell2.innerHTML = data[i][1];
+      cell3.innerHTML = data[i][2];
+      cell4.innerHTML = data[i][3];
+    }
+
+    document.getElementById('table').appendChild(table);
+
+  </script>
+  
+</body>
+{% endblock %}

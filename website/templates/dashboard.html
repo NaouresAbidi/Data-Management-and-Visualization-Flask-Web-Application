@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>IPAC User Portal</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+  {% block content %}
+  <img src="{{ url_for('static', filename='ipac LOGO.jpg') }}"id="logo">
+  <nav class="secondary-nav">
+    <style>
+      .navbar {
+        position: absolute;
+        left: 35px;
+      }
+    </style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+    <style>
+      body {
+        margin: 0%;
+        font-size: 18px;
+      }
+      ul {
+        list-style-type: none;
+        margin: 0%;
+        padding: 1.6%;
+        overflow: hidden;
+        background-color: #113045;
+        text-align: center;
+        top: 0%;
+        width: 100%;
+      }
+      li {
+        float: left;
+      }
+      li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 12px 16px;
+        text-decoration: none !important;
+        font-weight: bold;
+        font-family: 'Roboto';
+      }
+      li a:hover {
+        background-color: black;
+        color: white;
+        border-radius: 10px;
+      }
+    </style>
+    <style>
+      
+      .card:hover {
+        transform: scale(1.2);
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
+
+      }
+      .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <ul>
+      <li><a id="Management" href="/management">Management</a></li>
+      <li><a id="Accounting" href="/visual">Accounting</a></li>
+      <li><a id="Human Resources" href="/HR">Human Resources</a></li>
+      <li><a id="logout" href="{{ url_for('auth.logout') }}">Logout</a></li>
+    </ul>
+  </nav>
+  <div class="card-container" style="display: flex; justify-content: center; gap: 40px;">
+    <a href="{{ url_for('views.candidate') }}" style="color: black; text-decoration: none;">
+      <div class="card" style="width:280 px; height:300px; display: grid; margin-top: 2.5cm;  grid-template-columns:300px; grid-template-rows:210px 210px  80px; grid-template-areas: 'image' 'text'; font-family: roboto; border-radius:18px; background: white; box-shadow:5px 5px 15px rgba(0,0,0,0.9); text-align: center; transition:0.5s ease; cursor:pointer;">
+        <div class="card-image" style="grid-area: image; background: url('/static/candidates.jpg');background-size: cover; border-top-left-radius:15px;border-top-right-radius:15px; border-bottom-left-radius:15px;border-bottom-right-radius:15px;"></div>
+        <div class="card-text" style="grid-area: text; margin:25px;font-size: 16px;">
+          <h3>Search & Modify Candidate details</h3>
+        </div>
+      </div>
+    </a>
+    <a href="{{ url_for('views.instructor') }}" style="color: black; text-decoration: none;">
+      <div class="card" style="width:280 px; height:300px; display: grid; margin-top: 2.5cm;  grid-template-columns:300px; grid-template-rows:210px 210px  80px; grid-template-areas: 'image' 'text'; font-family: roboto; border-radius:18px; background: white; box-shadow:5px 5px 15px rgba(0,0,0,0.9); text-align: center; transition:0.5s ease; cursor:pointer;">
+        <div class="card-image" style="grid-area: image; background: url('/static/instructors.jpg');background-size: cover; border-top-left-radius:15px;border-top-right-radius:15px; border-bottom-left-radius:15px;border-bottom-right-radius:15px;"></div>
+        <div class="card-text" style="grid-area: text; margin:25px;font-size: 16px;">
+          <h3>Search & Modify Instructor details</h3>
+        </div>
+      </div>
+    </a>
+    <a href="{{ url_for('views.course') }}" style="color: black; text-decoration: none;">
+      <div class="card" style="width:280 px; height:300px; display: grid; margin-top: 2.5cm;  grid-template-columns:300px; grid-template-rows:210px 210px  80px; grid-template-areas: 'image' 'text'; font-family: roboto; border-radius:18px; background: white; box-shadow:5px 5px 15px rgba(0,0,0,0.9); text-align: center; transition:0.5s ease; cursor:pointer;">
+        <div class="card-image" style="grid-area: image; background: url('/static/courses.jpg');background-size: cover; border-top-left-radius:15px;border-top-right-radius:15px; border-bottom-left-radius:15px;border-bottom-right-radius:15px;"></div>
+        <div class="card-text" style="grid-area: text; margin:25px;font-size: 16px;">
+          <h3>Search & Modify Course details</h3>
+        </div>
+      </div>
+    </a>
+    <a href="/HR" style="color: black; text-decoration: none;">
+      <div class="card" style="width:280 px; height:300px; display: grid; margin-top: 2.5cm;  grid-template-columns:300px; grid-template-rows:210px 210px  80px; grid-template-areas: 'image' 'text'; font-family: roboto; border-radius:18px; background: white; box-shadow:5px 5px 15px rgba(0,0,0,0.9); text-align: center; transition:0.5s ease; cursor:pointer;">
+        <div class="card-image" style="grid-area: image; background: url('/static/add.jpeg');background-size: cover; border-top-left-radius:15px;border-top-right-radius:15px; border-bottom-left-radius:15px;border-bottom-right-radius:15px;"></div>
+        <div class="card-text" style="grid-area: text; margin:25px;font-size: 16px;">
+          <h3>Add Candidates & Instructors & Courses</h3>
+        </div>
+      </div>
+    </a>
+    <a href="/expense" style="color: black; text-decoration: none;">
+      <div class="card" style="width:280 px; height:300px; display: grid; margin-top: 2.5cm;  grid-template-columns:300px; grid-template-rows:210px 210px  80px; grid-template-areas: 'image' 'text'; font-family: roboto; border-radius:18px; background: white; box-shadow:5px 5px 15px rgba(0,0,0,0.9); text-align: center; transition:0.5s ease; cursor:pointer;">
+        <div class="card-image" style="grid-area: image; background: url('/static/expenses.jpeg');background-size: cover; border-top-left-radius:15px;border-top-right-radius:15px; border-bottom-left-radius:15px;border-bottom-right-radius:15px;"></div>
+        <div class="card-text" style="grid-area: text; margin:25px;font-size: 16px;">
+          <h3>Add an Expense/Income</h3>
+        </div>
+      </div>
+    </a>
+    <a href="/expensetable" style="color: black; text-decoration: none;">
+      <div class="card" style="width:280 px; height:300px; display: grid; margin-top: 2.5cm;  grid-template-columns:300px; grid-template-rows:210px 210px  80px; grid-template-areas: 'image' 'text'; font-family: roboto; border-radius:18px; background: white; box-shadow:5px 5px 15px rgba(0,0,0,0.9); text-align: center; transition:0.5s ease; cursor:pointer;">
+        <div class="card-image" style="grid-area: image; background: url('/static/expenses.jpeg');background-size: cover; border-top-left-radius:15px;border-top-right-radius:15px; border-bottom-left-radius:15px;border-bottom-right-radius:15px;"></div>
+        <div class="card-text" style="grid-area: text; margin:25px;font-size: 16px;">
+          <h3>Consult & modify Expense/Income table</h3>
+        </div>
+      </div>
+    </a>
+    <a href="/dashboard" style="color: black; text-decoration: none;">
+      <div class="card" style="width:280 px; height:300px; display: grid; margin-top: 2.5cm;  grid-template-columns:300px; grid-template-rows:210px 210px  80px; grid-template-areas: 'image' 'text'; font-family: roboto; border-radius:18px; background: white; box-shadow:5px 5px 15px rgba(0,0,0,0.9); text-align: center; transition:0.5s ease; cursor:pointer;">
+        <div class="card-image" style="grid-area: image; background: url('/static/reports.jpg');background-size: cover; border-top-left-radius:15px;border-top-right-radius:15px; border-bottom-left-radius:15px;border-bottom-right-radius:15px;"></div>
+        <div class="card-text" style="grid-area: text; margin:25px;font-size: 16px;">
+          <h3>Create Financial Report</h3>
+        </div>
+      </div>
+    </a>
+    <a href="/dashboard" style="color: black; text-decoration: none;">
+      <div class="card" style="width:280 px; height:300px; display: grid; margin-top: 2.5cm;  grid-template-columns:300px; grid-template-rows:210px 210px  80px; grid-template-areas: 'image' 'text'; font-family: roboto; border-radius:18px; background: white; box-shadow:5px 5px 15px rgba(0,0,0,0.9); text-align: center; transition:0.5s ease; cursor:pointer;">
+        <div class="card-image" style="grid-area: image; background: url('/static/listreports.png');background-size: cover; border-top-left-radius:15px;border-top-right-radius:15px; border-bottom-left-radius:15px;border-bottom-right-radius:15px;"></div>
+        <div class="card-text" style="grid-area: text; margin:25px;font-size: 16px;">
+          <h3>Consult saved reports</h3>
+        </div>
+      </div>
+    </a>
+    
+  </div>
+  
+  {% endblock %}
+</body>
+</html>

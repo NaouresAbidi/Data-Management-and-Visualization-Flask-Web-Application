@@ -1,0 +1,211 @@
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+{% block content %}
+<img src="{{ url_for('static', filename='ipac LOGO.jpg') }}" id="logo">
+<nav class="secondary-nav">
+  <style>
+    .navbar {
+      position: absolute;
+      left: 35px;
+    }
+  </style>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    crossorigin="anonymous" />
+  <style>
+    body {
+      margin: 0%;
+      font-size: 18px;
+    }
+
+    ul {
+      list-style-type: none;
+      margin: 0%;
+      padding: 1.6%;
+      overflow: hidden;
+      background-color: #113045;
+      text-align: center;
+      top: 0%;
+      width: 100%;
+    }
+
+    li {
+      float: left;
+    }
+
+    li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 12px 16px;
+      text-decoration: none !important;
+      font-weight: bold;
+      font-family: 'Roboto';
+    }
+
+    li a:hover {
+      background-color: black;
+      color: white;
+      border-radius: 10px;
+
+    }
+  </style>
+  
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  {% if category == 'Error' %}
+  <div class="alert alert-danger alert-dismissable fade show" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% else %}
+  <div class="alert alert-success alert-dismissable fade show" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+  <body>
+    <ul>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a id="logout" href="{{ url_for('auth.logout') }}">Logout</a></li>
+      <li><a id="logout" href="{{ url_for('views.HR') }}">Add</a></li>
+    </ul>
+  </body>
+</nav>
+
+<head>
+  <style>
+    .form-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form-group {
+      flex-basis: 49%;
+      margin-bottom: 20px;
+    }
+
+    .forms {
+      display: none;
+      margin-top: 50px;
+    }
+  </style>
+  <style>
+    .container {
+      margin: 0 auto;
+      max-width: 5000px;
+      font-family: 'roboto';
+    }    
+  </style>
+</head>
+
+
+
+<div class="container">
+  <h1 class="text-center mb-5">Search:</label>
+    <div class="form-group">
+      <input type="text" id="search_term" class="form-control" name="search_term" placeholder="Search...">
+      <div class="table-responsive">
+        <table id="results_table" class="table table-striped">
+
+
+          <tr>
+  
+            {% for key in results[0].keys() %}
+  
+            <th>
+              {{ key }}
+            </th>
+  
+            {% endfor %}
+  
+          </tr>
+  
+          {% for result in results %}
+  
+          <tr>
+  
+            {% for value in result.values() %}
+  
+            <td>
+              {{ value }}
+            </td>
+  
+            {% endfor %}
+  
+            <td><a href="{{ url_for('views.update_candidate', id=result.id) }}" class="btn btn-primary">Edit</a></td>
+  
+          </tr>
+  
+          {% endfor %}
+  
+        </table>
+      </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $("#search_term").on("input", function () {
+      var search_term = $(this).val();
+
+      $.ajax({
+        url: "/candidate",
+        type: "POST",
+        data: {
+          search_term: search_term
+        },
+        success: function (data) {
+          var results_table = $("#results_table");
+
+          // Clear previous search results
+          results_table.empty();
+
+          // Add table header row
+          var header_row = $("<tr></tr>");
+          Object.keys(data[0]).forEach(function (key) {
+            header_row.append($("<th></th>").text(key));
+          });
+          header_row.append($("<th></th>").text("Edit"));
+          results_table.append(header_row);
+
+          // Add search results rows
+          data.forEach(function (row) {
+            var data_row = $("<tr></tr>");
+            Object.values(row).forEach(function (value) {
+              data_row.append($("<td></td>").text(value));
+            });
+
+            // Add link to edit the candidate
+            var edit_url = "/candidate/" + row["id"] + "/update";
+            var edit_link = $("<a></a>").attr("href", edit_url).text("Edit");
+            var edit_td = $("<td></td>").append(edit_link);
+            data_row.append(edit_td);
+
+            results_table.append(data_row);
+          });
+        }
+      });
+    });
+  });
+</script>
+
+
+{% endblock %}

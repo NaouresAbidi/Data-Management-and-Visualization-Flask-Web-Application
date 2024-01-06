@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+{% block content %}
+<img src="{{ url_for('static', filename='ipac LOGO.jpg') }}"id="logo">
+<nav class="secondary-nav">
+    <style>
+      .navbar {
+          position: absolute;
+          left: 35px;
+      }
+      </style>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+    <style>
+      body{
+        margin:0%;
+        font-size: 18px;
+      }
+      ul{
+        list-style-type: none;
+        margin:0%;
+        padding: 1.6%;
+        overflow: hidden;
+        background-color: #113045;
+        text-align: center;
+        top:0%;
+        width: 100%; 
+      }
+      li{
+        float:left;
+      }
+      li a{
+        display:block;
+        color:white;
+        text-align: center ;
+        padding: 12px 16px;
+        text-decoration: none !important;
+        font-weight: bold;
+        font-family: 'Roboto';
+      }
+      li a:hover{
+        background-color: black;
+        color: white;
+        border-radius: 10px;
+      }
+      
+    </style>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        {% if category == 'Error' %}
+          <div class="alert alert-danger alert-dismissable fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% else %}
+          <div class="alert alert-success alert-dismissable fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  
+    <body>
+      <ul>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a id="logout" href="{{ url_for('auth.logout') }}">Logout</a></li>
+      </ul>
+    </body>
+  </nav>
+<head>
+	<title>Long Table Page</title>
+	<style>
+		table {
+			border-collapse: collapse;
+			width: 100%;
+			margin-bottom: 20px;
+			border: 1px solid #ddd;
+		}
+
+		th, td {
+			text-align: left;
+			padding: 8px;
+			border: 1px solid #ddd;
+		}
+
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+
+		button {
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			padding: 8px 12px;
+			cursor: pointer;
+			font-size: 16px;
+			border-radius: 4px;
+			margin-right: 5px;
+		}
+
+		button:hover {
+			background-color: #3e8e41;
+		}
+
+		.approve {
+			background-color: #4CAF50;
+		}
+
+		.disapprove {
+			background-color: #f44336;
+		}
+
+		.comment {
+			background-color: #2196F3;
+		}
+        h1 {
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<h1>Saved Report List</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>Report ID</th>
+				<th>User</th>
+				<th>Date Range</th>
+				<th>Note</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>12554</td>
+				<td>Marwa Hamdi</td>
+				<td>01/01/2023-01/05/2023</td>
+				<td>No comment</td>
+				<td>
+					<button class="approve">Approve</button>
+					<button class="disapprove">Disapprove</button>
+					<button class="comment">Comment</button>
+				</td>
+			</tr>
+			<tr>
+				<td>12887</td>
+				<td>Skander Ayadi</td>
+				<td>01/06/2022-01/12/2022</td>
+				<td>Some notes about report</td>
+				<td>
+					<button class="approve">Approve</button>
+					<button class="disapprove">Disapprove</button>
+					<button class="comment">Comment</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+<body>
+	<h1>Viewed Saved reports</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>Report ID</th>
+				<th>User</th>
+				<th>Date Range</th>
+				<th>Status</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>12887</td>
+				<td>Skander Ayadi</td>
+				<td>01/01/2022-01/05/2022</td>
+				<td>Approved</td>
+				<td>
+					<button class="approve">View</button>
+				</td>
+			</tr>
+			
+			<!-- More rows here -->
+		</tbody>
+	</table>
+</body>
+
+</body>
+</html>
+
+{% endblock %}

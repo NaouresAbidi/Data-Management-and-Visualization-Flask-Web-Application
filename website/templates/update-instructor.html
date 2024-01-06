@@ -1,0 +1,212 @@
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+{% block content %}
+<img src="{{ url_for('static', filename='ipac LOGO.jpg') }}" id="logo">
+<nav class="secondary-nav">
+  <style>
+    .navbar {
+      position: absolute;
+      left: 35px;
+    }
+  </style>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    crossorigin="anonymous" />
+  <style>
+    body {
+      margin: 0%;
+      font-size: 18px;
+    }
+
+    ul {
+      list-style-type: none;
+      margin: 0%;
+      padding: 1.6%;
+      overflow: hidden;
+      background-color: #113045;
+      text-align: center;
+      top: 0%;
+      width: 100%;
+    }
+
+    li {
+      float: left;
+    }
+
+    li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 12px 16px;
+      text-decoration: none !important;
+      font-weight: bold;
+      font-family: 'Roboto';
+    }
+
+    li a:hover {
+      background-color: black;
+      color: white;
+      border-radius: 10px;
+
+    }
+  </style>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  {% if category == 'Error' %}
+  <div class="alert alert-danger alert-dismissable fade show" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% else %}
+  <div class="alert alert-success alert-dismissable fade show" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+  <body>
+    <ul>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a id="logout" href="{{ url_for('auth.logout') }}">Logout</a></li>
+    </ul>
+  </body>
+</nav>
+
+<head>
+  <style>
+    .form-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form-group {
+      flex-basis: 49%;
+      margin-bottom: 20px;
+    }
+
+    .forms {
+      display: none;
+      margin-top: 50px;
+    }
+  </style>
+  <style>
+    .container{
+      font-family: 'roboto';
+    }
+  </style>
+</head>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <br><br>
+      <form class="form-wrapper" method="post">
+        <div class="form-group">
+          <label for="firstname">First Name</label>
+          <input type="text" class="form-control" style="width:85%" id="firstname" name="firstname"
+            value="{{ tmp.firstname1 }}" />
+        </div>
+        <div class="form-group">
+          <label for="lastname">Last Name</label>
+          <input type="text" class="form-control" style="width:85%" id="lastname" name="lastname"
+            value="{{ tmp.lastname1 }}" />
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" class="form-control" style="width:85%" id="email" name="email" value="{{ tmp.email }}" />
+        </div>
+        <div class="form-group">
+          <label for="select_course">Select Course:</label>
+          <select id="select_course" name="select_course" class="form-control" style="width:85%">
+            <option value="{{ tmp.ourse }}" selected>{{ tmp.course }}</option>
+            <option value="Barista">Barista</option>
+            <option value="Waiter">Waiter</option>
+            <option value="Bakery_Confectionery">Bakery/Confectionery</option>
+            <option value="Pizza">Pizza</option>
+            <option value="Tunisian_Pastry">Tunisian Pastry</option>
+            <option value="International_Pastry">International Pastry</option>
+            <option value="Fast Food">Fast Food</option>
+            <option value="Gastronomy_Kitchen_Assistant">Gastronomy/ Kitchen Assistant</option>
+            <option value="Detergent_Products">Detergent Products</option>
+            <option value="Parfumery">Parfumery</option>
+            <option value="Office Computing">Office Computing</option>
+            <option value="Graphin Design">Graphin Design</option>
+            <option value="Architecture_Software">Architecture Software</option>
+            <option value="Exchange">Exchange</option>
+            <option value="Trading">Trading</option>
+            <option value="Digital_Marketing">Digital Marketing</option>
+            <option value="Human_Resources">Human Resources</option>
+            <option value="Building_Electricity">Building Electricity</option>
+            <option value="Plumbing">Plumbing</option>
+            <option value="Fluid_HOT_COLD_air_conditioning_heating">Fluid HOT/COLD air conditioning/heating</option>
+            <option value="Quantity_Surveyor">Quantity Surveyor</option>
+            <option value="Surveyors_Assistant">Surveyors Assistant</option>
+            <option value="English">English</option>
+            <option value="French">French</option>
+            <option value="Italian">Italian</option>
+            <option value="TOEFL_TOEIC_Preparation">TOEFL TOEIC Preparation</option>
+            <option value="Nail care">Nail care</option>
+            <option value="Aesthetic_care">Aesthetic Care</option>
+            <option value="The_organization_of_work_in_the_company">The organization of work in the company</option>
+            <option value="Business_Management">Business Management</option>
+            <option value="Communication_and_sales_techniques">Communication and sales techniques</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="telephone">Telephone Number</label>
+          <input type="text" class="form-control" style="width:85%" id="telephone" name="telephone"
+            value="{{ tmp.telephone1 }}" />
+        </div>
+        <div class="form-group">
+          <label for="birthdate">Birthdate</label>
+          <input type="text" class="form-control" style="width:85%" id="birthdate" name="birthdate"
+            value="{{ tmp.birthdate1 }}" />
+        </div>
+        <div class="form-group">
+          <label for="birthplace">Birth Place</label>
+          <input type="text" class="form-control" style="width:85%" id="birthplace" name="birthplace"
+            value="{{ tmp.birthplace1 }}" />
+        </div>
+        <div class="form-group">
+          <label for="nationality">Nationality</label>
+          <input type="text" class="form-control" style="width:85%" id="nationality" name="nationality"
+            value="{{ tmp.nationality1 }}" />
+        </div>
+        <div class="form-group">
+          <label for="cin_passport">CIN or Passport</label>
+          <input type="text" class="form-control" style="width:85%" id="cin_passport" name="cin_passport"
+            value="{{ tmp.cin_passport1 }}" />
+        </div>
+        <div class="form-group">
+          <label for="select_payment">Select Payment Type</label>
+          <select id="select_payment" name="select_payment" class="form-control" style="width:85%">
+              <option value="{{ tmp.select_payment }}" selected>{{ tmp.select_payment }}</option>
+              <option value="Human Resources">Monthly</option>
+              <option value="Accounting">Hourly</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input type="text" class="form-control" style="width:85%" id="address" name="address"
+            value="{{ tmp.address }}" />
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 85px; height: 50px;">Submit</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
